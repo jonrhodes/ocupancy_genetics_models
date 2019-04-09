@@ -1,0 +1,83 @@
+display(log)
+check(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/mod_auto_gen.txt)
+model is syntactically correct
+data(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/data.txt)
+data loaded
+compile(3)
+model compiled
+inits(1,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/inits1.txt)
+this chain contains uninitialized variables
+inits(2,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/inits2.txt)
+this chain contains uninitialized variables
+inits(3,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/inits3.txt)
+this chain contains uninitialized variables
+gen.inits()
+initial values generated, model initialized
+thin.updater(10)
+update(2000)
+set(gbar)
+set(gtemp)
+set(grain)
+set(sbar)
+set(sgnat)
+set(sgpad)
+set(sfpc)
+set(srden)
+set(selev)
+set(sbd)
+set(sclay)
+set(spaw)
+set(sveg)
+set(saut)
+set(rbar)
+set(vsig)
+set(msig)
+set(gdbar)
+set(gdres)
+set(gdsig)
+set(deviance)
+dic.set()
+command #Bugs:dic.set cannot be executed (is greyed out)
+update(3000)
+coda(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/coda)
+stats(*)
+
+Node statistics
+	 node	 mean	 sd	 MC error	2.5%	median	97.5%	start	sample
+	deviance	343.0	10.91	0.2816	322.4	342.6	365.3	2001	9000
+	gbar	0.4056	0.1419	0.005039	0.1312	0.4059	0.6905	2001	9000
+	gdbar	7.35	1.092	0.01159	5.212	7.353	9.492	2001	9000
+	gdres	0.06729	1.128	0.01108	-2.186	0.0637	2.315	2001	9000
+	gdsig	4.522	0.3538	0.003798	3.685	4.59	4.982	2001	9000
+	grain	-0.4141	0.1857	0.00773	-0.7925	-0.4088	-0.06719	2001	9000
+	gtemp	0.08776	0.1614	0.006887	-0.2206	0.08186	0.4174	2001	9000
+	msig	3.563	0.9594	0.01049	1.544	3.689	4.941	2001	9000
+	rbar	-0.2819	1.997	0.02193	-4.371	-0.3051	3.717	2001	9000
+	saut	2.55	1.44	0.01623	0.1292	2.582	4.874	2001	9000
+	sbar	3.007	2.681	0.182	-1.434	2.751	9.259	2001	9000
+	sbd	-10.94	4.586	0.3416	-21.56	-10.29	-3.844	2001	9000
+	sclay	1.969	2.67	0.1949	-2.646	1.697	7.817	2001	9000
+	selev	-1.394	3.106	0.2233	-7.407	-1.187	4.123	2001	9000
+	sfpc	1.64	1.634	0.1169	-1.684	1.682	4.848	2001	9000
+	sgnat	9.855	4.966	0.3687	1.293	9.602	20.59	2001	9000
+	sgpad	-0.1271	10.13	0.2709	-19.99	-0.1019	19.13	2001	9000
+	spaw	-13.55	5.225	0.3893	-25.17	-13.18	-4.272	2001	9000
+	srden	-4.465	4.064	0.31	-12.56	-3.825	1.733	2001	9000
+	sveg[1]	2.718	2.987	0.1972	-2.34	2.417	9.75	2001	9000
+	sveg[2]	2.963	3.481	0.1907	-3.461	2.754	10.81	2001	9000
+	sveg[3]	3.64	3.308	0.1988	-2.283	3.346	11.05	2001	9000
+	sveg[4]	2.754	3.196	0.1982	-2.928	2.522	10.12	2001	9000
+	sveg[5]	2.985	3.547	0.1888	-3.665	2.77	10.89	2001	9000
+	sveg[6]	2.605	3.297	0.2089	-3.45	2.496	10.16	2001	9000
+	sveg[7]	3.424	3.042	0.1875	-1.777	3.156	10.63	2001	9000
+	sveg[8]	3.143	2.573	0.178	-1.109	2.888	8.886	2001	9000
+	vsig	1.998	1.195	0.04429	0.2729	1.786	4.644	2001	9000
+dic.stats()
+
+DIC
+history(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/history.odc)
+
+History
+
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/log.odc)
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/sugar_glider/gen/log.txt)

@@ -1,0 +1,195 @@
+model
+{
+	#standardise continuous covariates
+	#grid level standardisation
+	GTEMPmn <- mean(GTEMP[]);
+	GTEMPsd <- sd(GTEMP[]);
+	GRAINmn <- mean(GRAIN[]);
+	GRAINsd <- sd(GRAIN[]);
+	GNATPmn <- mean(GNATP[]);
+	GNATPsd <- sd(GNATP[]);
+	GPADmn <- mean(GPAD[]);
+	GPADsd <- sd(GPAD[]);
+	for (i in 1:(GCO+GNC))
+	{
+		GTEMPs[i] <- (GTEMP[i] - GTEMPmn) / GTEMPsd;
+		GRAINs[i] <- (GRAIN[i] - GRAINmn) / GRAINsd;
+		GNATPs[i] <- (GNATP[i] - GNATPmn) / GNATPsd;
+		GPADs[i] <- (GPAD[i] - GPADmn) / GPADsd;
+	}
+	#site and point level standardisation
+	#get means and sds
+	for (i in 1:GS)
+	{
+		for (j in 1:NSTS[i])
+		{
+			SFPCv[NSTC[i] - NSTS[i] + j] <- SFPC[i,j];
+			SRDENv[NSTC[i] - NSTS[i] + j] <- SRDEN[i,j];
+			SELEVv[NSTC[i] - NSTS[i] + j] <- SELEV[i,j];
+			SBDv[NSTC[i] - NSTS[i] + j] <- SBD[i,j];
+			SCLAYv[NSTC[i] - NSTS[i] + j] <- SCLAY[i,j];
+			SPAWv[NSTC[i] - NSTS[i] + j] <- SPAW[i,j];
+		}
+	}
+	#site level
+	for (i in 1:GS)
+	{
+		for (j in 1:NSTS[i])
+		{
+			SFPCs[i,j] <- (SFPC[i,j] - mean(SFPCv[])) / sd(SFPCv[]);
+			SRDENs[i,j] <- (SRDEN[i,j] - mean(SRDENv[])) / sd(SRDENv[]);
+			SELEVs[i,j] <- (SELEV[i,j] - mean(SELEVv[])) / sd(SELEVv[]);
+			SBDs[i,j] <- (SBD[i,j] - mean(SBDv[])) / sd(SBDv[]);
+			SCLAYs[i,j] <- (SCLAY[i,j] - mean(SCLAYv[])) / sd(SCLAYv[]);
+			SPAWs[i,j] <- (SPAW[i,j] - mean(SPAWv[])) / sd(SPAWv[]);
+		}
+	}
+	
+	#point level
+	for (i in 1:GP)
+	{
+		for (j in 1:NPTS[i])
+		{
+			PFPCs[i,j] <- (PFPC[i,j] - mean(SFPCv[])) / sd(SFPCv[]);
+			PRDENs[i,j] <- (PRDEN[i,j] - mean(SRDENv[])) / sd(SRDENv[]);
+			PELEVs[i,j] <- (PELEV[i,j] - mean(SELEVv[])) / sd(SELEVv[]);
+			PBDs[i,j] <- (PBD[i,j] - mean(SBDv[])) / sd(SBDv[]);
+			PCLAYs[i,j] <- (PCLAY[i,j] - mean(SCLAYv[])) / sd(SCLAYv[]);
+			PPAWs[i,j] <- (PPAW[i,j] - mean(SPAWv[])) / sd(SPAWv[]);
+		}
+	}
+	
+	#genetic resistance standardisation
+	GRESmn <- mean(GRES[]);
+	GRESsd <- sd(GRES[]);
+	for (i in 1:NGEN)
+	{
+		GRESs[i] <- (GRES[i] - GRESmn) / GRESsd;
+	}
+		
+	#likelihood
+	
+	#OCCUPANCY
+	
+	#loop through grids with connections to other grids
+	for (i in 1:GCO)
+	{
+		#true occupancy of grids
+		g_lp[GCOID[i]] <- gbar + gtemp * GTEMPs[GCOID[i]] + grain * GRAINs[GCOID[i]];
+		g_lim[GCOID[i]] <- min(999,max(-999,g_lp[GCOID[i]])); #to prevent overflows
+		logit(g[GCOID[i]]) <- g_lim[GCOID[i]];
+		OCG[GCOID[i]] ~ dbern(g[GCOID[i]]);
+		
+		#autocorrelation component
+		#loop through adjacent grids
+		for (j in 1:NADJ[GCOID[i]])
+		{
+			Wgt[GCOID[i],j] <- sum(OCP[IDADJ[GCOID[i],j],1:NPTS[IDADJ[GCOID[i],j]]]) * (0.01 / ADJR[GCOID[i],j])
+		}
+		AutoC[GCOID[i]] <- ((sum(Wgt[GCOID[i],1:NADJ[GCOID[i]]])) / NADJ[GCOID[i]])
+				
+		#grid contribution to sites and points
+		gspcov[GCOID[i]] <- sgnat * GNATPs[GCOID[i]] + sgpad * GPADs[GCOID[i]];
+	}
+
+	#loop through grids with no connections
+	for (i in 1:GNC)
+	{
+		#true occupancy of grids
+		g_lp[GNCID[i]] <- gbar + gtemp * GTEMPs[GNCID[i]] + grain * GRAINs[GNCID[i]];
+		g_lim[GNCID[i]] <- min(999,max(-999,g_lp[GNCID[i]])); #to prevent overflows
+		logit(g[GNCID[i]]) <- g_lim[GNCID[i]];
+		OCG[GNCID[i]] ~ dbern(g[GNCID[i]]);
+				
+		AutoC[GNCID[i]] <- 0;
+				
+		#grid contribution to sites and points
+		gspcov[GNCID[i]] <- sgnat * GNATPs[GNCID[i]] + sgpad * GPADs[GNCID[i]];
+	}
+	
+	#loop through grids that have sites
+	for (i in 1:GS)
+	{
+		#loop through sites in each grid
+		for (j in 1:NSTS[i])
+		{
+			#true occupancy of sites
+			s_lp[i,j] <- gspcov[GSID[i]] + sfpc * SFPCs[i,j] + srden * SRDENs[i,j] + selev * SELEVs[i,j] + sbd * SBDs[i,j] + sclay * SCLAYs[i,j] + spaw * SPAWs[i,j] + sveg[SVEG[i,j]] + saut * AutoC[GSID[i]];
+			s_lim[i,j] <- min(999,max(-999,s_lp[i,j])); #to prevent overflows
+			logit(s[i,j]) <- s_lim[i,j];
+			us[i,j] <- OCG[GSID[i]] * s[i,j];
+			OCS[i,j] ~ dbern(us[i,j]);
+			
+			#loop through repeat surveys in each site 
+			for (k in 1:NREP[i,j])
+			{
+				#observed occupancy of sites
+				r_lp[i,j,k] <- rmon[MONTH[i,j]];
+				r_lim[i,j,k] <- min(999,max(-999,r_lp[i,j,k])); #to prevent overflows
+				logit(r[i,j,k]) <- r_lim[i,j,k];
+				ur[i,j,k] <- OCS[i,j] * r[i,j,k];
+				PAS[i,j,k] ~ dbern(ur[i,j,k]);
+			}
+		}
+	}
+	
+	#loop through grids that have points
+	for (i in 1:GP)
+	{
+		#loop through points in each grid
+		for (j in 1:NPTS[i])
+		{
+			#true occupancy of points
+			p_lp[i,j] <- gspcov[GPID[i]] + sfpc * PFPCs[i,j] + srden * PRDENs[i,j] + selev * PELEVs[i,j] + sbd * PBDs[i,j] + sclay * PCLAYs[i,j] + spaw * PPAWs[i,j] + sveg[PVEG[i,j]] + saut * AutoC[GPID[i]];
+			p_lim[i,j] <- min(999,max(-999,p_lp[i,j])); #to prevent overflows
+			logit(p[i,j]) <- p_lim[i,j];
+			up[i,j] <- OCG[GPID[i]] * p[i,j];
+			OCP[i,j] ~ dbern(up[i,j]);
+			predp[i,j] <- g[GPID[i]] * p[i,j];
+		}
+	}
+		
+	#set vegetation type as a random-effect 
+	for (i in 1:NVEG)
+	{
+		sveg[i] ~ dnorm(sbar,vtau);
+	}
+	#set month as a random-effect
+	for (i in 1:12)
+	{
+		rmon[i] ~ dnorm(rbar,mtau);
+	}
+	
+	#GENETICS
+	
+	for (i in 1:NGEN)
+	{
+		gd_lp[i] <- gdbar + gdres * GRESs[i];
+		GENDs[i] <- GEND[i] * 100;
+		GENDs[i] ~ dnorm(gd_lp[i],gdtau);
+	}
+		
+	#priors
+	gbar ~ dnorm(0,0.01);
+	gtemp ~ dnorm(0,0.01);
+	grain ~ dnorm(0,0.01);
+	sbar ~ dnorm(0,0.01);
+	sgnat ~ dnorm(0,0.01);
+	sgpad ~ dnorm(0,0.01);
+	sfpc ~ dnorm(0,0.01);
+	srden ~ dnorm(0,0.01);
+	selev ~ dnorm(0,0.01);
+	sbd ~ dnorm(0,0.01);
+	sclay ~ dnorm(0,0.01);
+	spaw ~ dnorm(0,0.01);
+	saut ~ dunif(0,5);
+	rbar ~ dnorm(0,0.01);
+	vtau <- pow(vsig,-2);
+	vsig ~ dunif(0,5);
+	mtau <- pow(msig,-2);
+	msig ~ dunif(0,5);
+	gdbar ~ dnorm(0,0.01);
+	gdres ~ dnorm(0,0.01);
+	gdtau <- pow(gdsig,-2);
+	gdsig ~ dunif(0,5);
+}

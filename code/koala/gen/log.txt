@@ -1,0 +1,83 @@
+display(log)
+check(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/mod_auto_gen.txt)
+model is syntactically correct
+data(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/data.txt)
+data loaded
+compile(3)
+model compiled
+inits(1,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/inits1.txt)
+this chain contains uninitialized variables
+inits(2,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/inits2.txt)
+this chain contains uninitialized variables
+inits(3,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/inits3.txt)
+this chain contains uninitialized variables
+gen.inits()
+initial values generated, model initialized
+thin.updater(10)
+update(2000)
+set(gbar)
+set(gtemp)
+set(grain)
+set(sbar)
+set(sgnat)
+set(sgpad)
+set(sfpc)
+set(srden)
+set(selev)
+set(sbd)
+set(sclay)
+set(spaw)
+set(sveg)
+set(saut)
+set(rbar)
+set(vsig)
+set(msig)
+set(gdbar)
+set(gdres)
+set(gdsig)
+set(deviance)
+dic.set()
+command #Bugs:dic.set cannot be executed (is greyed out)
+update(3000)
+coda(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/coda)
+stats(*)
+
+Node statistics
+	 node	 mean	 sd	 MC error	2.5%	median	97.5%	start	sample
+	deviance	8375.0	10.48	0.3173	8355.0	8374.0	8397.0	2001	9000
+	gbar	3.676	0.3105	0.009339	3.127	3.649	4.347	2001	9000
+	gdbar	8.807	0.209	0.002302	8.399	8.808	9.212	2001	9000
+	gdres	3.502	0.2143	0.002234	3.084	3.503	3.919	2001	9000
+	gdsig	4.999	0.001094	1.181E-5	4.996	4.999	5.0	2001	9000
+	grain	-0.883	0.2969	0.007865	-1.492	-0.8736	-0.3212	2001	9000
+	gtemp	-0.3545	0.2956	0.008561	-0.9713	-0.3437	0.1881	2001	9000
+	msig	0.5474	0.5959	0.01055	0.0135	0.3812	2.266	2001	9000
+	rbar	-0.599	0.4541	0.005909	-1.436	-0.6261	0.3832	2001	9000
+	saut	2.343	1.439	0.02139	0.1047	2.296	4.844	2001	9000
+	sbar	6.716	2.14	0.1364	3.312	6.421	12.06	2001	9000
+	sbd	-0.6035	1.104	0.07299	-2.929	-0.5168	1.29	2001	9000
+	sclay	1.786	1.185	0.08555	-0.493	1.801	4.063	2001	9000
+	selev	-14.47	2.768	0.2107	-20.8	-14.43	-9.013	2001	9000
+	sfpc	5.686	1.201	0.08973	3.027	5.678	8.46	2001	9000
+	sgnat	8.202	2.273	0.1704	4.613	7.762	13.96	2001	9000
+	sgpad	1.305	8.661	0.3475	-15.64	1.471	17.88	2001	9000
+	spaw	-0.8496	0.8838	0.05989	-2.386	-0.8869	1.127	2001	9000
+	srden	13.37	2.775	0.2097	8.689	13.08	20.44	2001	9000
+	sveg[1]	6.093	1.795	0.1216	3.241	5.84	10.31	2001	9000
+	sveg[2]	6.622	3.11	0.1413	0.9645	6.325	13.91	2001	9000
+	sveg[3]	6.779	2.556	0.1361	2.521	6.47	12.75	2001	9000
+	sveg[4]	8.07	3.87	0.2707	2.986	7.217	18.85	2001	9000
+	sveg[5]	6.768	3.042	0.1338	1.553	6.4	14.05	2001	9000
+	sveg[6]	6.619	3.232	0.2076	0.5517	6.298	14.16	2001	9000
+	sveg[7]	6.914	3.033	0.1907	2.227	6.358	14.8	2001	9000
+	sveg[8]	6.253	1.52	0.1058	3.433	6.171	9.738	2001	9000
+	vsig	2.117	1.247	0.06706	0.2829	1.895	4.732	2001	9000
+dic.stats()
+
+DIC
+history(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/history.odc)
+
+History
+
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/log.odc)
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/koala/gen/log.txt)

@@ -1,0 +1,68 @@
+display(log)
+check(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/mod_auto.txt)
+model is syntactically correct
+data(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/data.txt)
+data loaded
+compile(3)
+model compiled
+inits(1,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/inits1.txt)
+this chain contains uninitialized variables
+inits(2,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/inits2.txt)
+this chain contains uninitialized variables
+inits(3,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/inits3.txt)
+this chain contains uninitialized variables
+gen.inits()
+initial values generated, model initialized
+thin.updater(10)
+update(3000)
+set(gbar)
+set(gtemp)
+set(grain)
+set(sbar)
+set(sgnat)
+set(sgpad)
+set(sfpc)
+set(srden)
+set(selev)
+set(sbd)
+set(sclay)
+set(spaw)
+set(saut)
+set(rbar)
+set(vsig)
+set(msig)
+set(deviance)
+dic.set()
+command #Bugs:dic.set cannot be executed (is greyed out)
+update(2000)
+coda(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/coda)
+stats(*)
+
+Node statistics
+	 node	 mean	 sd	 MC error	2.5%	median	97.5%	start	sample
+	deviance	2.288E+11	1.918E+11	2.967E+9	371.7	2.2E+11	5.8E+11	3001	6000
+	gbar	-0.5821	0.4038	0.01181	-1.218	-0.6371	0.3076	3001	6000
+	grain	0.5685	0.2019	0.004264	0.1904	0.5574	0.9923	3001	6000
+	gtemp	0.06338	0.1868	0.003531	-0.2962	0.05996	0.4444	3001	6000
+	msig	1.987	1.245	0.02505	0.1388	1.771	4.619	3001	6000
+	rbar	-0.3788	1.494	0.0239	-3.373	-0.4351	2.811	3001	6000
+	saut	1.207	29.81	0.4294	-60.61	2.321	64.01	3001	6000
+	sbar	7.175	14.9	0.8879	-23.34	7.284	34.39	3001	6000
+	sbd	0.63	16.16	0.2516	-32.06	0.2097	36.03	3001	6000
+	sclay	-1.62	15.94	0.2688	-36.41	-1.039	29.62	3001	6000
+	selev	0.4132	13.56	0.2345	-27.18	0.3176	27.67	3001	6000
+	sfpc	-0.3744	12.32	0.2073	-24.45	-0.4356	24.99	3001	6000
+	sgnat	-0.6142	13.89	0.2235	-30.81	-0.2979	26.39	3001	6000
+	sgpad	0.318	11.87	0.163	-22.37	0.2496	23.29	3001	6000
+	spaw	0.7403	12.08	0.1863	-21.77	0.3438	26.15	3001	6000
+	srden	-0.09971	12.25	0.1885	-24.36	-0.3475	25.06	3001	6000
+	vsig	4.0	0.9394	0.01532	1.552	4.307	4.98	3001	6000
+dic.stats()
+
+DIC
+history(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/history.odc)
+
+History
+
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/log.odc)
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/log.txt)

@@ -1,0 +1,101 @@
+model
+{
+#standardise covariates
+#grid level standardisation
+GURBmn <- mean(GURB[]);
+GURBsd <- sd(GURB[]);
+GNFmn <- mean(GNF[]);
+GNFsd <- sd(GNF[]);
+
+for (i in 1:G)
+{
+GURBs[i] <- (GURB[i] - GURBmn) / GURBsd;
+GNFs[i] <- (GNF[i] - GNFmn) / GNFsd;
+}
+#site level standardisation
+for (i in 1:GS)
+{
+for (j in 1:REPSI[i])
+#get values for site level covariates
+{
+HRHv[REPSIC[i] - REPSI[i] + j] <- HRH[i,j];
+HRLv[REPSIC[i] - REPSI[i] + j] <- HRL[i,j];
+HFPCv[REPSIC[i] - REPSI[i] + j] <- HFPC[i,j];
+}
+}
+#standardise site level covariates
+for (i in 1:GS)
+{
+for (j in 1:REPSI[i])
+{
+HRHs[i,j] <- (HRH[i,j] - mean(HRHv[])) / sd(HRHv[]);
+HRLs[i,j] <- (HRL[i,j] - mean(HRLv[])) / sd(HRLv[]);
+HFPCs[i,j] <- (HFPC[i,j] - mean(HFPCv[])) / sd(HFPCv[]);
+}
+}
+
+#likelihood
+for (i in 1:G)
+{
+#true occupancy of grids
+for (j in 1:NCELL[i])
+{
+AutoC[i,j] <- PAG[AGID[i,j]] * (1 / AGRE[i,j])
+}
+
+p_lp[i] <- pbar + purb * GURBs[i] + pnf * GNFs[i] + paut * ((sum(AutoC[i,1:NCELL[i]])) / NCELL[i]);
+p_lim[i] <- min(999,max(-999,p_lp[i])); #to prevent overflows
+logit(p[i]) <- p_lim[i];
+mp[i] <- p[i]; #this is here so we can do something with AREA - not sure yet, might ignore it?
+PAG[i] ~ dbern(mp[i]);
+}
+
+for (i in 1:GS)
+{
+for (j in 1:REPSI[i])
+#loop through sites in each grid
+{
+#true occupancy of sites
+q_lp[i,j] <- qbar + qrh * HRHs[i,j] + qrl * HRLs[i,j] + qfpc * HFPCs[i,j] + qre[SRE[i,j]];
+q_lim[i,j] <- min(999,max(-999,q_lp[i,j])); #to prevent overflows
+logit(q[i,j]) <- q_lim[i,j];
+uq[i,j] <- PAG[GRIDID[i]] * q[i,j];
+PAS[i,j] ~ dbern(uq[i,j]);
+
+for (k in 1:REPSU[i,j])
+#loop through repeat surveys in each site 
+{
+#observed occupancy of sites
+r_lp[i,j,k] <- rran[MONTH[i,j]];
+r_lim[i,j,k] <- min(999,max(-999,r_lp[i,j,k])); #to prevent overflows
+logit(r[i,j,k]) <- r_lim[i,j,k];
+ur[i,j,k] <- PAS[i,j] * r[i,j,k];
+PA[i,j,k] ~ dbern(ur[i,j,k]);
+}
+}
+}
+
+#set dectability as a random-effect grouped by month
+for (i in 1:12)
+{
+rran[i] ~ dnorm(rbar,rtau);
+}
+
+#priors
+pbar ~ dnorm(0,0.1); #intercept for p
+purb ~ dnorm(0,0.1); #urban effect on p
+pnf ~ dnorm(0,0.1); #native forest effect on p
+paut ~ dnorm(0,0.1); #autocorrelation effect on p
+qbar ~ dnorm(0,0.1); #intercept for q
+qrh ~ dnorm(0,0.1); #high volume roads effect at home range for q
+qrl ~ dnorm(0,0.1); #low volume roads effect at home range for q
+qfpc ~ dnorm(0,0.1); #FPC effect at home range for q
+qre[1] <- 0; # baseline for RE effect at site for q
+for (i in 2:3)
+{
+qre[i] ~ dnorm(0,0.1);
+}
+rbar ~ dnorm(0,0.1); #mean for r
+rtau <- pow(rsig,-2);
+rsig ~ dunif(0,5); #standard deviation for random-effect for r
+}

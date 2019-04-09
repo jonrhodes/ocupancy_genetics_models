@@ -1,0 +1,83 @@
+display(log)
+check(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/mod_auto_gen.txt)
+model is syntactically correct
+data(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/data.txt)
+data loaded
+compile(3)
+model compiled
+inits(1,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/inits1.txt)
+this chain contains uninitialized variables
+inits(2,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/inits2.txt)
+this chain contains uninitialized variables
+inits(3,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/inits3.txt)
+this chain contains uninitialized variables
+gen.inits()
+initial values generated, model initialized
+thin.updater(10)
+update(2000)
+set(gbar)
+set(gtemp)
+set(grain)
+set(sbar)
+set(sgnat)
+set(sgpad)
+set(sfpc)
+set(srden)
+set(selev)
+set(sbd)
+set(sclay)
+set(spaw)
+set(sveg)
+set(saut)
+set(rbar)
+set(vsig)
+set(msig)
+set(gdbar)
+set(gdres)
+set(gdsig)
+set(deviance)
+dic.set()
+command #Bugs:dic.set cannot be executed (is greyed out)
+update(3000)
+coda(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/coda)
+stats(*)
+
+Node statistics
+	 node	 mean	 sd	 MC error	2.5%	median	97.5%	start	sample
+	deviance	579.1	12.56	0.5387	554.2	579.3	603.6	2001	9000
+	gbar	0.09598	0.1131	0.002474	-0.1278	0.09588	0.3157	2001	9000
+	gdbar	4.872	0.9531	0.0104	3.005	4.876	6.725	2001	9000
+	gdres	2.831	0.975	0.01017	0.8989	2.825	4.709	2001	9000
+	gdsig	4.939	0.05909	6.333E-4	4.781	4.957	4.998	2001	9000
+	grain	-0.3357	0.1356	0.002969	-0.6075	-0.334	-0.06889	2001	9000
+	gtemp	0.2066	0.1344	0.002644	-0.05702	0.2065	0.4735	2001	9000
+	msig	1.695	1.146	0.03498	0.05847	1.464	4.458	2001	9000
+	rbar	-0.8891	1.09	0.02053	-3.117	-0.9429	1.555	2001	9000
+	saut	2.49	1.437	0.016	0.1151	2.458	4.866	2001	9000
+	sbar	17.75	5.751	0.4223	7.24	17.71	28.58	2001	9000
+	sbd	-7.555	3.686	0.2695	-14.86	-7.606	-0.7937	2001	9000
+	sclay	1.521	4.052	0.3099	-6.342	2.328	8.011	2001	9000
+	selev	9.619	6.269	0.4787	-0.3621	9.643	21.27	2001	9000
+	sfpc	1.637	1.511	0.1106	-0.9066	1.539	4.565	2001	9000
+	sgnat	2.977	3.505	0.2384	-3.703	3.032	9.366	2001	9000
+	sgpad	2.2	10.16	0.2519	-17.88	2.158	21.87	2001	9000
+	spaw	-7.247	2.463	0.182	-11.76	-7.297	-2.76	2001	9000
+	srden	-4.552	2.391	0.1727	-9.29	-4.391	-0.371	2001	9000
+	sveg[1]	17.15	6.691	0.4856	4.166	16.76	29.67	2001	9000
+	sveg[2]	17.86	6.845	0.4392	4.764	17.92	30.97	2001	9000
+	sveg[3]	17.19	6.508	0.4384	4.807	17.49	29.36	2001	9000
+	sveg[4]	15.44	6.03	0.4429	4.735	15.36	26.61	2001	9000
+	sveg[5]	17.6	6.829	0.4272	4.824	17.57	30.9	2001	9000
+	sveg[6]	18.24	6.345	0.4678	7.395	17.94	30.25	2001	9000
+	sveg[7]	18.1	6.284	0.4262	6.695	18.06	29.98	2001	9000
+	sveg[8]	22.41	5.878	0.4394	10.74	22.61	33.69	2001	9000
+	vsig	3.42	1.096	0.05002	0.9875	3.593	4.934	2001	9000
+dic.stats()
+
+DIC
+history(*,E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/history.odc)
+
+History
+
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/log.odc)
+save(E:/Projects/seq_genetics/analysis/distribution_models/models/winbugs/antechinus/gen/log.txt)
